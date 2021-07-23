@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum PhotoType {
     REAL_ESTATE("RealEstate"), FOOD("Food"), EVENTS("Events");
 
-    private String value;
+    private final String value;
 
-    private PhotoType(String value) {
+    PhotoType(String value) {
         this.value = value;
     }
 

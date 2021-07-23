@@ -6,6 +6,8 @@ import com.boom.challenge.model.File;
 import com.boom.challenge.service.OrderCreateService;
 import com.boom.challenge.service.OrderRetrieveService;
 import com.boom.challenge.service.OrderUpdateService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,8 @@ public class OrderController {
 
     @Autowired
     private OrderUpdateService orderUpdateService;
+
+    private final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
     @PostMapping("order")
     public OrderView createOrder(@RequestBody OrderView orderView) {
@@ -54,6 +58,7 @@ public class OrderController {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleErrors(Exception e) {
+        this.logger.error("Unexpected exception: ", e);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ErrorResponse.builder().message("Internal server error").build());
     }
 }
